@@ -8,7 +8,8 @@ db_user = settings.model_config.get('POSTGRES_USER')
 db_password = settings.model_config.get('POSTGRES_PASSWORD')
 db_name = settings.model_config.get('POSTGRES_DB')
 
-SQLALCHEMY_DATABASE_URL = f"postgresql+psycopg2://${db_user}:${db_password}@localhost/${db_name}"
+SQLALCHEMY_DATABASE_URL = "postgresql+psycopg2://admin:admin@localhost/fast-api-db"
+# TODO f"postgresql+psycopg2://${db_user}:${db_password}@localhost/${db_name}"
 
 engine = create_engine(
     SQLALCHEMY_DATABASE_URL, connect_args={}, future=True

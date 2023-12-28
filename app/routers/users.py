@@ -1,29 +1,30 @@
-from typing import Optional, List
-import fastapi
-from pydantic import BaseModel
+from fastapi import Depends, HTTPException, APIRouter
+from sqlalchemy.orm import Session
 
-router = fastapi.APIRouter()
+from app.services.user import get_user_by_email, create_user, get_user, get_users
+from ..database import get_db
+from ..schemas.user import User, UserCreate
 
-users = []
-
-
-class User(BaseModel):
-    email: str
-    is_active: bool
-    bio: Optional[str]
+router = APIRouter()
 
 
-@router.get("/users", response_model=List[User])
-async def get_users():
+@router.post("/users/", response_model=User)
+def create_user(user: UserCreate, db: Session = Depends(get_db)):
+    db_user = get_user_by_email(db, email=user.email)
+    if db_user:
+        raise HTTPException(status_code=400, detail="Email already registered")
+    return create_user(db=db, user=user)
+
+
+@router.get("/users/", response_model=list[User])
+def read_users(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
+    users = get_users(db, skip=skip, limit=limit)
     return users
 
 
-@router.post("/users")
-async def create_user(user: User):
-    users.append(user)
-    return "Success"
-
-
-@router.get("/users/{id}")
-async def get_user(id: int):
-    return { "user": users[id] }
+@router.get("/users/{user_id}", response_model=User)
+def read_user(user_id: int, db: Session = Depends(get_db)):
+    db_user = get_user(db, user_id=user_id)
+    if db_user is None:
+        raise HTTPException(status_code=404, detail="User not found")
+    return db_user
