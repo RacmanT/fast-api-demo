@@ -10,3 +10,7 @@ Base.metadata.create_all(bind=engine)
 
 app.include_router(users.router)
 app.include_router(items.router)
+
+@app.get("/")
+def hello_world():
+    return {'message': 'Hello World'}

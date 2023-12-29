@@ -11,5 +11,4 @@ class User(Base):
     hashed_password = Column(String)
     is_active = Column(Boolean, default=True)
 
-    # No direct import of Item to avoid circular import
     items = relationship("Item", back_populates="owner")

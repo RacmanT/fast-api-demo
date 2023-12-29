@@ -11,5 +11,4 @@ class Item(Base):
     description = Column(String, index=True)
     owner_id = Column(Integer, ForeignKey("users.id"))
 
-    # No direct import of User to avoid circular import
     owner = relationship("User", back_populates="items")
