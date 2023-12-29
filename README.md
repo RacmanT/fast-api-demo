@@ -19,7 +19,7 @@ Spin up the app: `uvicorn main:app [--reload]`
 ## TODOs
 
 - [x] Initialize the web app
-- [ ] Add basic CRUD operations persisting on PostgresDb
+- [x] Add basic CRUD operations persisting on PostgresDb
 - [ ] Error responses handling
 - [ ] JWT Authentication
 - [ ] Unit testing
