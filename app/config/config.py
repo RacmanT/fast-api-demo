@@ -23,6 +23,7 @@ class Settings(BaseSettings):
     postgres_db: str
     postgres_user: str
     postgres_password: str
+    postgres_host: str
 
     model_config = SettingsConfigDict(env_file=get_env_file_path())
 

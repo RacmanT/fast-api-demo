@@ -1,13 +1,11 @@
-FROM python:3.11-slim
+FROM python:slim
 
-RUN pip install poetry
+WORKDIR /code
 
-WORKDIR /app
+COPY ./requirements.txt /code/requirements.txt
 
-COPY . .
+RUN pip install --no-cache-dir --upgrade -r /code/requirements.txt
 
-RUN poetry install --no-root
+COPY app /code/app
 
-EXPOSE 8000
-
-CMD ["poetry", "run", "uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000", "--reload"]
+CMD ["fastapi", "dev", "app/main.py"]

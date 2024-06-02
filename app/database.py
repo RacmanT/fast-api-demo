@@ -10,7 +10,7 @@ from .config.config import settings
 # print(settings.postgres_db)
 # print('"""""""""""""""""""""""')
 
-SQLALCHEMY_DATABASE_URL = f"postgresql+psycopg2://{settings.postgres_user}:{settings.postgres_password}@localhost/{settings.postgres_db}"
+SQLALCHEMY_DATABASE_URL = f"postgresql+psycopg2://{settings.postgres_user}:{settings.postgres_password}@{settings.postgres_host}/{settings.postgres_db}"
 # SQLALCHEMY_DATABASE_URL = "postgresql+psycopg2://admin:password@localhost:5432/fast-api-db2"
 
 engine = create_engine(SQLALCHEMY_DATABASE_URL, connect_args={}, future=True)
