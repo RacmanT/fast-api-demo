@@ -4,14 +4,17 @@ from sqlalchemy.orm import sessionmaker
 
 from .config.config import settings
 
-SQLALCHEMY_DATABASE_URL = f"postgresql+psycopg2://{settings.postgres_user}:{settings.postgres_password}@localhost/{settings.postgres_db}"
+# print('"""""""""""""""""""""""')
+# print(settings.postgres_user)
+# print(settings.postgres_password)
+# print(settings.postgres_db)
+# print('"""""""""""""""""""""""')
 
-engine = create_engine(
-    SQLALCHEMY_DATABASE_URL, connect_args={}, future=True
-)
-SessionLocal = sessionmaker(
-    autocommit=False, autoflush=False, bind=engine, future=True
-)
+SQLALCHEMY_DATABASE_URL = f"postgresql+psycopg2://{settings.postgres_user}:{settings.postgres_password}@localhost/{settings.postgres_db}"
+# SQLALCHEMY_DATABASE_URL = "postgresql+psycopg2://admin:password@localhost:5432/fast-api-db2"
+
+engine = create_engine(SQLALCHEMY_DATABASE_URL, connect_args={}, future=True)
+SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine, future=True)
 
 Base = declarative_base()
 
